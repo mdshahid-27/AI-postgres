@@ -8,5 +8,13 @@
     "Hello what can you do?",
     "Are you a AI Agent or just a tools calling Bot?",
     "From available users and available books create 5 slots mapped with bookId and user. In Slots table",
-    "i said users not author"
+    "i said users not author",
+    "empty the slots table and now try to add new data from vailable users and available books create 5 slots mapped with bookId and user. In Slots table",
+    "first just empty entire slots",
+    "check now you can able to do that i hav eupdated ",
+    "now try that",
+    "Okey just update using author id",
+    "fetch all the slots",
+    "add the column",
+    "check it now"
 ]

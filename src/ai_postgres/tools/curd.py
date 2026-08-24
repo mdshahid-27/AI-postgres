@@ -51,7 +51,7 @@ def create_slot(data : CreateSlot):
     with Session(engine) as session:
         created = Slots(
             bookId=data.bookId,
-            userId=data.userId
+            authorId=data.authorId
         )
 
         session.add(created)
