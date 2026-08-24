@@ -6,5 +6,7 @@
     "why author id is None? fill the author id with their respective author",
     "what are the operations u can do?",
     "Hello what can you do?",
-    "Are you a AI Agent or just a tools calling Bot?"
+    "Are you a AI Agent or just a tools calling Bot?",
+    "From available users and available books create 5 slots mapped with bookId and user. In Slots table",
+    "i said users not author"
 ]

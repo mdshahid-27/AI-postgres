@@ -21,7 +21,7 @@ class Authors(SQLModel, table = True):
 class Slots(SQLModel, table = True):
     id : Optional[int] = Field(default=None, primary_key=True)
     bookId : int
-    authorId : int
+    userId : int
 
 
 class CreateUser(BaseModel):
@@ -50,9 +50,8 @@ class UpdateAuthor(BaseModel):
 
 class CreateSlot(BaseModel):
     bookId : int
-    authorId : int
+    userId : int
 
 class UpdateSlot(BaseModel):
     bookId : int
-    authorId : int
-
+    userId : int
