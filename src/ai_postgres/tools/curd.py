@@ -1,9 +1,16 @@
 from sqlmodel import Session, create_engine, select, join, SQLModel, func
 from ..schema.database import CreateBook, CreateAuthor, CreateSlot, CreateUser, UpdateAuthor,UpdateSlot, UpdateBook, UpdateUser, Users, Books, Authors, Slots
+from sentence_transformers import SentenceTransformer
 
-DATABASE_URL = "postgresql://postgres:postgres@localhost:5431/libray_ai"
+
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+
+DATABASE_URL = "postgresql://postgres:your_password@localhost:5432/libray_ai_"
 
 engine = create_engine(DATABASE_URL)
+
+
 
 SQLModel.metadata.create_all(engine)
 
@@ -23,16 +30,23 @@ def create_user(data : CreateUser):
 def create_book(data: CreateBook):
     '''This tool is for create book in Books Table'''
     with Session(engine) as session:
+        vec = model.encode(data.desc).tolist()
         created = Books(
             name=data.name,
-            author_id=data.authorId,
-            genre=data.genre
+            authorId=data.authorId,
+            genre=data.genre,
+            desc=data.desc,
+            desc_vector= vec
         )
         session.add(created)
         session.commit()
         session.refresh(created)
 
-        return 'Created Successfully'
+        return {
+                "success": True, 
+                "message": "Created Successfully", 
+                "book_id": created.id 
+            }
 
 def create_author(data : CreateAuthor):
     '''This tool is for create Author in Authors table'''
@@ -266,3 +280,22 @@ def delete_slot(id: int):
         session.delete(record)
         session.commit()
         return {"success": f"Slot with ID {id} has been deleted."}
+
+
+def search_books_by_description(query_text: str, limit: int = 3):
+    '''Tools helps to search vector similarity'''
+    query_vector = model.encode(query_text).tolist()
+    with Session(engine) as session:
+        statement = (
+            select(Books)
+            .order_by(Books.desc_vector.cosine_distance(query_vector))
+            .limit(limit)
+        )
+        results = session.exec(statement).all()
+
+        print(f"\n--- Search Results for: '{query_text}' ---")
+        for book in results:
+            print(f"📖 Title: {book.name}")
+            print(f"📄 Snippet: {book.desc[:100]}...\n")
+
+
