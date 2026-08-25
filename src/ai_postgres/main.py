@@ -6,7 +6,7 @@ from google import genai
 from ai_postgres.tools.curd import create_user, create_book, create_author, create_slot, update_user, update_book, update_author, update_slot
 from ai_postgres.tools.curd import book_start_from, book_end_with, total_slots, view_genres, search_book, search_author, search_user, search_book_isavail
 from ai_postgres.tools.curd import get_all_authors, get_all_books, get_all_slots, get_all_users
-from ai_postgres.tools.curd import delete_author, delete_book, delete_slot, delete_user
+from ai_postgres.tools.curd import delete_author, delete_book, delete_slot, delete_user, search_books_by_description
 
 load_dotenv()
 
@@ -55,7 +55,8 @@ tools = [create_user,
         delete_author, 
         delete_book, 
         delete_slot, 
-        delete_user]
+        delete_user,
+        search_books_by_description]
 
 class ChatRequest(BaseModel):
     message: str
@@ -89,9 +90,11 @@ def chat(data: ChatRequest):
         contents=prompt,
         config={
             "system_instruction": (
+                "Your name is : MegaTron, you're an library management and general purpose AI"
                 "You must use your available tools to find accurate, real-time facts before answering any user question. "
                 "Do not rely only on memory if a tool can check the data. "
                 "Always run a tool call when you need specific numbers, current events, locations, or factual lookups."
+                "if user asks to search anything from web, then use your knowledge to answer the user"
             ),
             "tools": tools
         }

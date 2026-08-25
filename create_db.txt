@@ -1,1 +1,6 @@
-docker exec -it pg-bookstore psql -U postgres -c "CREATE DATABASE libray_ai;"
+docker run --name pg-bookstore -e POSTGRES_PASSWORD=your_password -p 5432:5432 -d pgvector/pgvector:pg16
+docker exec -it pg-bookstore psql -U postgres -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+docker exec -it pg-bookstore psql -U postgres -c "CREATE DATABASE libray_ai_;"
+
+docker exec -it pg-bookstore psql -U postgres -d libray_ai_ -c "CREATE EXTENSION IF NOT EXISTS vector;"
