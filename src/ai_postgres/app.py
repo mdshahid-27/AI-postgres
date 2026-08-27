@@ -6,7 +6,7 @@ API_URL = "http://127.0.0.1:8000/chat"
 
 # Page configuration
 st.set_page_config(
-    page_title="Library AI Assistant",
+    page_title="MegaTron",
     page_icon="📚",
     layout="centered"
 )
@@ -23,7 +23,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("📚 Library Assistant Chatbot")
-st.caption("Powered by FastAPI, Google GenAI, and PostgreSQL tools")
+st.caption("Powered by FastAPI, Google GenAI, MCP, and PostgreSQL tools")
 
 # Initialize chat history in session state if it doesn't exist
 if "messages" not in st.session_state:

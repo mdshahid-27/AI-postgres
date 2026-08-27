@@ -293,9 +293,10 @@ def search_books_by_description(query_text: str, limit: int = 3):
         )
         results = session.exec(statement).all()
 
-        print(f"\n--- Search Results for: '{query_text}' ---")
+        print(f"\n Search Results for: '{query_text}'")
         for book in results:
-            print(f"📖 Title: {book.name}")
-            print(f"📄 Snippet: {book.desc[:100]}...\n")
+            print(f"Title: {book.name}")
+            print(f"Snippet: {book.desc[:100]}...\n")
 
+        return [book.model_dump() for book in results]
 
