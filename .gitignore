@@ -8,5 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+#Files to ignore
 .env 
-.temp.py
+temp.py
