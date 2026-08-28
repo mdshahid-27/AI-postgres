@@ -76,7 +76,7 @@ async def chat(data: ChatRequest):
     save_file(QUERIES_FILE, queries)
 
     history = load_file(HISTORY_FILE)
-    history.append({"user": data.message, "assistant": answer})
+    history.append({"user": data.message, "assistant": answer[0]['text']})
     save_file(HISTORY_FILE, history)
 
     return {"response": answer[0]['text']}
